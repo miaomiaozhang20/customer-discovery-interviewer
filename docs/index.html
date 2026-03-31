@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Discovery Interviewer</title>
+    <meta name="description" content="AI-powered customer discovery interviews for market validation and demand discovery">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="icon">🎯</span>
+                <h1>Customer Discovery Interviewer</h1>
+            </div>
+            <div class="header-actions">
+                <button id="settingsBtn" class="btn-icon" title="Settings">⚙️</button>
+                <button id="helpBtn" class="btn-icon" title="Help">❓</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Session</h3>
+                    <button id="newSessionBtn" class="btn-secondary">🔄 New Interview</button>
+                    <button id="loadSessionBtn" class="btn-secondary">📂 Load Session</button>
+                    <button id="saveSessionBtn" class="btn-secondary">💾 Save Session</button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Stage</h3>
+                    <div class="stage-indicator">
+                        <div class="stage active" id="stageInterview">
+                            <span class="stage-icon">🎤</span>
+                            <span>Interview</span>
+                        </div>
+                        <div class="stage" id="stageReport">
+                            <span class="stage-icon">📝</span>
+                            <span>Report</span>
+                        </div>
+                    </div>
+                    <button id="switchStageBtn" class="btn-primary">Start Report Writer</button>
+                </div>
+
+                <div class="sidebar-section" id="productUploadSection">
+                    <h3>Product Description</h3>
+                    <p class="help-text">Upload a PDF or paste text describing your product/service (optional)</p>
+                    <input type="file" id="productFile" accept=".pdf,.txt" style="display: none;">
+                    <button id="uploadProductBtn" class="btn-secondary">📄 Upload PDF</button>
+                    <textarea id="productDescription" placeholder="Or paste product description here..." rows="4"></textarea>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Export</h3>
+                    <button id="exportReportBtn" class="btn-secondary" disabled>📥 Download Report</button>
+                    <button id="exportTranscriptBtn" class="btn-secondary">📋 Export Transcript</button>
+                </div>
+            </aside>
+
+            <!-- Chat Area -->
+            <main class="chat-container">
+                <!-- Instructions Panel -->
+                <div id="instructionsPanel" class="instructions-panel">
+                    <button id="closeInstructions" class="close-btn">✕</button>
+                    <div id="instructionsContent"></div>
+                </div>
+
+                <!-- Messages -->
+                <div id="messagesContainer" class="messages-container">
+                    <!-- Messages will be inserted here -->
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-container">
+                    <textarea
+                        id="userInput"
+                        placeholder="Type your response here..."
+                        rows="3"
+                        autocomplete="off"
+                    ></textarea>
+                    <div class="input-actions">
+                        <button id="sendBtn" class="btn-primary">Send</button>
+                        <button id="skipBtn" class="btn-secondary">Skip Question</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-btn" id="closeSettings">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="apiProvider">AI Provider</label>
+                    <select id="apiProvider">
+                        <option value="anthropic">Anthropic Claude</option>
+                        <option value="openai">OpenAI GPT</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="anthropicKeyGroup">
+                    <label for="anthropicKey">Anthropic API Key</label>
+                    <input type="password" id="anthropicKey" placeholder="sk-ant-...">
+                    <small>Get your key at <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a></small>
+                </div>
+
+                <div class="form-group" id="openaiKeyGroup" style="display: none;">
+                    <label for="openaiKey">OpenAI API Key</label>
+                    <input type="password" id="openaiKey" placeholder="sk-...">
+                    <small>Get your key at <a href="https://platform.openai.com/" target="_blank">platform.openai.com</a></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="modelSelect">Model</label>
+                    <select id="modelSelect">
+                        <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet</option>
+                        <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                        <option value="gpt-4o">GPT-4o</option>
+                        <option value="gpt-4o-mini">GPT-4o Mini</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="temperature">Temperature (0-1)</label>
+                    <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.8">
+                    <span id="temperatureValue">0.8</span>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="showInstructions" checked>
+                        Show instructions on start
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettings" class="btn-primary">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>How to Use</h2>
+                <button class="close-btn" id="closeHelp">✕</button>
+            </div>
+            <div class="modal-body" id="helpContent">
+                <!-- Help content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="spinner"></div>
+        <p>AI is thinking...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/interviewer.js"></script>
+    <script src="js/report-writer.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
