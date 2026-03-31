@@ -13,7 +13,7 @@ class Interviewer {
             message += " related to the product/service we'll be discussing";
         }
 
-        message += ". This conversation will help us understand if and how we might be able to help people like you. There are no right or wrong answers—I'm just here to listen and learn from your experiences.\n\nTo start, could you tell me a bit about yourself and your current situation?";
+        message += ". This conversation will help us understand if and how we might be able to help people like you. There are no right or wrong answers—I'm just here to listen and learn from your experiences.\n\nTo start, could you tell me a bit about yourself and what are some problems you try to solve in your daily life?";
 
         return message;
     }

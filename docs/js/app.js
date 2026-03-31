@@ -46,11 +46,7 @@ class App {
             input.click();
         });
 
-        // Stage switching
-        document.getElementById('switchStageBtn').addEventListener('click', () => this.handleStageSwitch());
-
         // Export
-        document.getElementById('exportReportBtn').addEventListener('click', () => this.handleExportReport());
         document.getElementById('exportTranscriptBtn').addEventListener('click', () => storage.exportTranscript());
 
         // Product upload
@@ -130,30 +126,17 @@ class App {
         ui.showLoading();
 
         try {
-            const stage = storage.getStage();
+            // Interview stage only
+            const response = await interviewer.sendMessage(message);
+            ui.addMessage('ai', response);
 
-            if (stage === 'interview') {
-                // Interview stage
-                const response = await interviewer.sendMessage(message);
-                ui.addMessage('ai', response);
-
-                // Check if all required questions are asked
-                if (storage.areAllQuestionsAsked()) {
-                    setTimeout(() => {
-                        const msg = "Thank you so much for your time and for sharing your experiences so openly. Your insights are incredibly valuable and will help us make better decisions about how to move forward.\n\nYou can click the 'Start Report Writer' button on the left-hand sidebar to generate an insights report from our conversation.";
-                        storage.addMessage('ai', msg);
-                        ui.addMessage('ai', msg);
-                    }, 1000);
-                }
-
-            } else {
-                // Report stage
-                if (!storage.getReport()) {
-                    ui.showError('Please generate the initial report first.');
-                } else {
-                    const refinedReport = await reportWriter.refineReport(message);
-                    ui.addMessage('ai', refinedReport);
-                }
+            // Check if all required questions are asked
+            if (storage.areAllQuestionsAsked()) {
+                setTimeout(() => {
+                    const msg = "Thank you so much for your time and for sharing your experiences so openly. Your insights are incredibly valuable and will help us make better decisions about how to move forward.\n\nYou can download the full interview transcript using the 'Export Transcript' button in the sidebar.";
+                    storage.addMessage('ai', msg);
+                    ui.addMessage('ai', msg);
+                }, 1000);
             }
 
         } catch (error) {
@@ -165,12 +148,8 @@ class App {
     }
 
     async handleSkip() {
-        const stage = storage.getStage();
-
-        if (stage === 'interview') {
-            const response = await interviewer.handleSkip();
-            ui.addMessage('ai', response);
-        }
+        const response = await interviewer.handleSkip();
+        ui.addMessage('ai', response);
     }
 
     handleNewSession() {
@@ -182,59 +161,6 @@ class App {
         }
     }
 
-    async handleStageSwitch() {
-        const currentStage = storage.getStage();
-
-        if (currentStage === 'interview') {
-            // Switch to report
-            if (storage.getMessages().length < 4) {
-                ui.showError('Please conduct a longer interview before generating a report.');
-                return;
-            }
-
-            if (!storage.areAllQuestionsAsked()) {
-                if (!confirm('Not all required questions have been asked. Generate report anyway?')) {
-                    return;
-                }
-            }
-
-            if (confirm('Switch to Report Writer? This will preserve your interview conversation.')) {
-                storage.setStage('report');
-                ui.updateStageUI();
-                ui.showLoading();
-
-                try {
-                    const report = await reportWriter.generateInitialReport();
-                    ui.loadMessages(); // Reload to show report
-                    ui.showSuccess('Report generated! You can now request changes.');
-                } catch (error) {
-                    ui.showError(error.message);
-                    storage.setStage('interview');
-                    ui.updateStageUI();
-                } finally {
-                    ui.hideLoading();
-                }
-            }
-
-        } else {
-            // Switch back to interview
-            if (confirm('Return to Interviewer? Your current Report Writer chat history will be cleared.')) {
-                storage.setStage('interview');
-                ui.updateStageUI();
-                ui.loadMessages();
-                ui.showSuccess('Returned to interview stage');
-            }
-        }
-    }
-
-    handleExportReport() {
-        try {
-            reportWriter.exportReportAsWord();
-            ui.showSuccess('Report exported successfully');
-        } catch (error) {
-            ui.showError(error.message);
-        }
-    }
 
     handleSaveSettings() {
         const provider = document.getElementById('apiProvider').value;

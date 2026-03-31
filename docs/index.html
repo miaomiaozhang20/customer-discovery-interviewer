@@ -34,18 +34,11 @@
                 </div>
 
                 <div class="sidebar-section">
-                    <h3>Stage</h3>
-                    <div class="stage-indicator">
-                        <div class="stage active" id="stageInterview">
-                            <span class="stage-icon">🎤</span>
-                            <span>Interview</span>
-                        </div>
-                        <div class="stage" id="stageReport">
-                            <span class="stage-icon">📝</span>
-                            <span>Report</span>
-                        </div>
+                    <h3>Progress</h3>
+                    <div id="interviewProgress">
+                        <p class="help-text">Interview in progress...</p>
+                        <div id="questionsProgress"></div>
                     </div>
-                    <button id="switchStageBtn" class="btn-primary">Start Report Writer</button>
                 </div>
 
                 <div class="sidebar-section" id="productUploadSection">
@@ -58,7 +51,6 @@
 
                 <div class="sidebar-section">
                     <h3>Export</h3>
-                    <button id="exportReportBtn" class="btn-secondary" disabled>📥 Download Report</button>
                     <button id="exportTranscriptBtn" class="btn-secondary">📋 Export Transcript</button>
                 </div>
             </aside>
@@ -174,7 +166,6 @@
     <script src="js/api.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/interviewer.js"></script>
-    <script src="js/report-writer.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
 </body>

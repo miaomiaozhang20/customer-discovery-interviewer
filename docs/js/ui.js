@@ -61,11 +61,7 @@ class UIManager {
     }
 
     showInstructions() {
-        const stage = storage.getStage();
-        const instructions = stage === 'interview'
-            ? CONFIG.INSTRUCTIONS.INTERVIEW
-            : CONFIG.INSTRUCTIONS.REPORT;
-
+        const instructions = CONFIG.INSTRUCTIONS.INTERVIEW;
         const content = document.getElementById('instructionsContent');
         content.innerHTML = this.formatMarkdown(instructions);
         this.instructionsPanel.style.display = 'block';
@@ -164,22 +160,21 @@ class UIManager {
     }
 
     updateStageUI() {
-        const stage = storage.getStage();
+        // Update progress display
+        this.updateProgress();
+    }
 
-        // Update stage indicators
-        const interviewStage = document.getElementById('stageInterview');
-        const reportStage = document.getElementById('stageReport');
+    updateProgress() {
+        const progress = interviewer.getProgress();
+        const progressDiv = document.getElementById('questionsProgress');
 
-        if (stage === 'interview') {
-            interviewStage.classList.add('active');
-            reportStage.classList.remove('active');
-            document.getElementById('switchStageBtn').textContent = 'Start Report Writer';
-            document.getElementById('exportReportBtn').disabled = true;
-        } else {
-            interviewStage.classList.remove('active');
-            reportStage.classList.add('active');
-            document.getElementById('switchStageBtn').textContent = 'Return to Interview';
-            document.getElementById('exportReportBtn').disabled = false;
+        if (progressDiv) {
+            progressDiv.innerHTML = `
+                <p><strong>Required Questions:</strong> ${progress.asked} / ${progress.total}</p>
+                <div class="progress-bar" style="background: #E5E7EB; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 0.5rem;">
+                    <div style="background: var(--primary-color); height: 100%; width: ${(progress.asked / progress.total) * 100}%; transition: width 0.3s;"></div>
+                </div>
+            `;
         }
     }
 

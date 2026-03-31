@@ -9,10 +9,11 @@ Access the live app at: **https://miaomiaozhang20.github.io/customer-discovery-i
 ## ✨ Features
 
 - **100% Client-Side**: Runs entirely in your browser, no server needed
-- **Two-Stage Process**: Interview → Insights Report
-- **AI-Powered**: Uses Anthropic Claude or OpenAI GPT
+- **AI-Powered Interview**: Uses Anthropic Claude or OpenAI GPT for conversational interviews
+- **Daily Problems Focus**: Starts by asking about problems you try to solve in daily life
+- **Three Required Questions**: Automatically asks about willingness to pay, missing questions, and contact permission
 - **Privacy First**: API keys stored locally, never sent to any server
-- **Export Reports**: Download as Word document
+- **Export Transcripts**: Download full interview as text file
 - **Session Management**: Save and load interview sessions
 - **Responsive Design**: Works on desktop and mobile
 
@@ -35,19 +36,19 @@ You need an API key from either:
 ### 3. Conduct Interview
 
 1. Optionally upload or paste a product description
-2. Start chatting with the AI interviewer
+2. The AI will start by asking: **"What are some problems you try to solve in your daily life?"**
 3. Answer questions about your experiences and challenges
-4. The AI will ask three required questions at the end:
-   - Would you be willing to pay?
-   - What questions am I missing?
-   - Can we contact you? (email)
+4. The AI will probe deeper with follow-up questions
+5. At the end, the AI will ask three required questions:
+   - Would you be willing to pay for [product]?
+   - What questions should I be asking that I haven't included?
+   - Are you willing to be contacted by founders? (If yes, provide email)
 
-### 4. Generate Report
+### 4. Export Your Interview
 
-1. Click "Start Report Writer"
-2. The AI generates a comprehensive insights report
-3. Request changes or refinements as needed
-4. Download the final report as a Word document
+1. Click "Export Transcript" to download the full conversation
+2. The transcript includes all questions and answers
+3. Use it for analysis, sharing with team, or your records
 
 ## 🔒 Privacy & Security
 
@@ -60,8 +61,8 @@ You need an API key from either:
 
 - **Save Session**: Download your interview as a JSON file
 - **Load Session**: Upload a previously saved session to continue
-- **Export Transcript**: Download the full conversation as text
-- **Export Report**: Download insights report as Word document
+- **Export Transcript**: Download the full conversation as text file
+- **New Interview**: Start a fresh interview (saves your progress automatically)
 
 ## 🎯 What Makes a Good Interview
 
