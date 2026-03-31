@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+openai = "1.68.2"
+streamlit = "1.44.1"
+anthropic = "0.50.0"
+boto3 = "1.38.33"
+watchdog = "6.0.0"
+dropbox = "12.0.2"
+streamlit-authenticator = "0.4.2"
+pandas = "2.2.3"
+pyyaml = "6.0.2"
+python-docx = "1.1.2"
+jupyter = "1.1.1"
+scikit-learn = "1.6.1"
+matplotlib = "3.10.1"
+sentence-transformers = "3.4.1" 
+pypandoc-binary = "1.15" 
+text_lloom = "0.8.2"
+ipywidgets = "8.1.5"
+bertopic = "0.17.0"
+yake = "0.4.8"
+wordcloud = "1.9.4"
+pypdf = "5.4.0"
+wordtangible = "0.1.1"
+textblob = "0.19.0"
+python-dotenv = "1.1.0"
+ai-interviewer-libs = {path="./ai-interviewer-libs"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
+python_full_version = "3.10.12"
