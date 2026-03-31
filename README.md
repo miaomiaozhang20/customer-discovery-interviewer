@@ -1,6 +1,15 @@
 # Customer Discovery Interviewer
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://customer-discovery-interviewer.streamlit.app)
+[![GitHub](https://img.shields.io/github/stars/miaomiaozhang20/customer-discovery-interviewer?style=social)](https://github.com/miaomiaozhang20/customer-discovery-interviewer)
+
 An AI-powered interview system designed to help founders and product teams conduct effective customer discovery interviews for market validation and demand discovery.
+
+## 🚀 Try It Live
+
+**Live App**: Coming soon at [customer-discovery-interviewer.streamlit.app](https://customer-discovery-interviewer.streamlit.app)
+
+👉 See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step deployment instructions!
 
 ## Overview
 
