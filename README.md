@@ -7,9 +7,23 @@ An AI-powered interview system designed to help founders and product teams condu
 
 ## 🚀 Try It Live
 
-**Live App**: Coming soon at [customer-discovery-interviewer.streamlit.app](https://customer-discovery-interviewer.streamlit.app)
+**🌐 Web App (GitHub Pages)**: https://miaomiaozhang20.github.io/customer-discovery-interviewer/
 
-👉 See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step deployment instructions!
+**No installation required!** Just visit the link, add your API key, and start interviewing.
+
+### Two Versions Available:
+
+1. **Web Version (Recommended for Quick Start)**
+   - Runs 100% in your browser
+   - No installation needed
+   - Works on any device
+   - Privacy-first (data stays local)
+   - [Try it now →](https://miaomiaozhang20.github.io/customer-discovery-interviewer/)
+
+2. **Python/Streamlit Version (For Self-Hosting)**
+   - Run on your own server
+   - More control over deployment
+   - See [DEPLOYMENT.md](DEPLOYMENT.md) for instructions
 
 ## Overview
 
